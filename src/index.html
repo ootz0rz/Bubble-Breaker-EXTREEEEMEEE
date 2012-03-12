@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bubble Breaker EXTREEEEMEEE!</title>
+        
+        <link rel="stylesheet" type="text/css" href="index.css" />
+        <script type="text/javascript" src="functions.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+        <script type="text/javascript" src="gameboard.js"></script>
+        <script type="text/javascript" src="sphere.js"></script>
+        <script type="text/javascript" src="scorebox.js"></script>
+        <script type="text/javascript" src="modal.js"></script>
+        <script type="text/javascript" src="bokeh.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="content">
+                <h1 id="title">Bubble Breaker <span>EXTREEEEMEEE!</span></h1>
+                <div id="gameplatform">
+                </div>
+            </div>
+        </div>
+        <div id="bokeh_container" class="circles">
+        </div>
+        
+        <script type="text/javascript">
+            game = new GameBoard('gameplatform', 'bokeh_container', 8, 15);
+        </script>
+    </body>
+</html>

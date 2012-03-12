@@ -1,0 +1,684 @@
+/* all values adjust specifically for FF where needed....chrome secondary */
+
+@import "config";
+
+//@import "index.webfonts";
+@import "index.localfonts";
+
+// functions ---------------------------------------
+@mixin sphere($color) {
+	$c1: lighten($color, 5);
+	$c2: $color;
+	$c3: darken($color, 40);
+	$shadow: $c2;//darken($c3, 5);
+
+	$p1: -20px;
+	$p2: -20px;
+
+	border-style: solid;
+	border-color: $c1;
+	border-width: 1px;
+
+	background-color: $color;
+
+	background-position: center center;
+	background-image: -moz-radial-gradient($p1 $p2, circle , $c1 0%, $c2 50%, $c3 100%);
+	background-image: -webkit-radial-gradient($p1 $p2, circle , $c1 0%, $c2 50%, $c3 100%);
+}
+
+@mixin sphere_shadow($color) {
+	$c1: lighten($color, 5);
+	$c2: $color;
+	$c3: darken($color, 40);
+	$shadow: $c2;//darken($c3, 5);
+
+	box-shadow: 1px 1px 3px $shadow;
+	-moz-box-shadow: 1px 1px 3px $shadow;
+	-webkit-box-shadow: 1px 1px 3px $shadow;
+}
+
+@mixin blendshadow($c1, $c2, $c3, $c4, $c5, $step: -5px) {
+	color: #fff;
+
+	$blur: 3px;
+	text-shadow: 
+		2px 0 0 #000,
+		0 2px 0 #000,
+		-2px 0 0 #000,
+		0 -2px 0 #000,
+
+		($step * 1) ($step * -1) $blur $c1,
+		($step * -2) ($step * 1) $blur $c2,
+		($step * 3) ($step * 1) $blur $c3,
+		($step * -4) ($step * 1) $blur $c4,
+		($step * 5) ($step * -1) $blur $c5,
+
+		($step * -1.5) ($step * 1.5) $blur*3 $c5,
+		($step * 2.5) ($step * -1.5) $blur*3 $c4,
+		($step * -3.5) ($step * -1.5) $blur*3 $c3,
+		($step * 4.5) ($step * -1.5) $blur*3 $c2,
+		($step * -5.5) ($step * 1.5) $blur*3 $c1;
+}
+
+@mixin neontext($color, $step: 2px) {
+	color: lighten($color_game_border, 40);
+
+	text-shadow: 
+		0 0 $step lighten($color,10),
+		0 0 $step*2 lighten($color,20),
+		0 0 $step*3 $color,
+		0 0 $step*4 darken($color, 5),
+		0 0 $step*7 darken($color, 5),
+		0 0 $step*8 darken($color, 5),
+		0 0 $step*10 darken($color, 10),
+		0 0 $step*15 darken($color, 10),
+
+		1px 0 $step lighten($color,40),
+		0 1px $step lighten($color,40),
+		-1px 0 $step lighten($color,40),
+		0 -1px $step lighten($color,40);
+}
+
+@mixin btnGradient($color) {
+	$tbot_color1: $color;
+
+	// main colors
+	$tbot_color2: saturate(darken($tbot_color1, 10), 10);
+	$tbot_color3: saturate(darken($tbot_color2, 10), 10);
+	$tbot_color4: saturate(darken($tbot_color3, 10), 10);
+	
+    background-color: $tbot_color1;
+    background-image: -moz-linear-gradient(top, $tbot_color1 0%, $tbot_color2 50%, $tbot_color3 50%, $tbot_color4 100%);
+    background-image: -webkit-linear-gradient(top, $tbot_color1 0%, $tbot_color2 50%, $tbot_color3 50%, $tbot_color4 100%);
+    background-image: linear-gradient(top, $tbot_color1 0%, $tbot_color2 50%, $tbot_color3 50%, $tbot_color4 100%);
+}
+
+@mixin makebutton($color, $shadow: rgba(0, 0, 0, 0.8)) {
+	text-decoration: none;
+	text-shadow: 0px -1px 1px $shadow;
+	
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    -webkit-box-shadow: inset 0px 0px 0px 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333333;
+    -moz-box-shadow: inset 0px 0px 0px 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333333;
+    box-shadow: inset 0px 0px 0px 1px rgba(255, 115, 100, 0.4), 0 1px 3px #333333;
+
+    @include btnGradient($color);
+}
+
+@mixin link-button($height) {
+	display: inline-block;
+
+	color: #fff;
+
+	height: ($height - $width_game_border) / 2;
+
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+	line-height: 2em;
+
+	padding: 0;
+	margin: 0;
+
+	padding-left: 1em;
+	padding-right: 1em;
+
+	@include makebutton(lighten($color_game_border, 15)); 
+
+	&#btnScores {
+		position: absolute;
+		bottom: 0;
+	}
+
+	&:hover {
+		@include btnGradient($color_game_highlight);
+
+		text-shadow: 
+			-1px 0px 1px #000,
+			1px 0px 1px #000,
+			0px -1px 1px #000,
+			0px 1px 1px #000;
+	}
+}
+
+@mixin sphere0_border($side, $width: 1px, $style: solid) {
+	border-#{$side}-style: $style;
+	border-#{$side}-width: $width;
+}
+
+/* page look */
+html {
+	-webkit-font-smoothing: antialiased;
+}
+
+body {
+	background-color: $color_body;
+	overflow: hidden;
+
+	font-family: $font_opensans;
+	color: #fff;
+}
+
+a {
+	color: #fff;
+
+	&:hover {
+		color: $color_game_border;
+	}
+}
+
+.container {
+	.content {
+		width: 100%;
+		top: 10px;
+		position: absolute;
+	}
+}
+
+#title {
+	//display: none;
+	z-index: 900;
+	
+	color: #fff;
+	margin: 0px auto;
+
+	width: 100%;
+	text-align: center;
+
+	font-size: 3em;
+	font-family: $font_sniglet;
+
+	@include blendshadow($s1, $s2, $s3, $s4, $s5);
+
+	span {
+		z-index: 900;
+		font-family: $font_luckiest;
+		@include neontext($color_game_border); 
+	}
+
+	&.blocks {
+		z-index: 900;
+		font-family: $font_titanone;
+	}
+}
+
+$platformwidth: $radius * $cols + ($cols * $padding);
+$platformheight: $radius * $rows + ($rows * $padding);
+
+#gameplatform {
+	z-index: 200;
+
+	//display: none;
+	width: $platformwidth;
+	height: $platformheight;
+
+	background-color: #000;
+
+	border-style: solid;
+	border-width: $width_game_border;
+	border-color: $color_game_border;
+
+	padding: $padding * 2;
+	padding-bottom: $padding * 2 + $height_scoreboard;
+	margin: 0px auto;
+
+	position: relative;
+
+	top: 10px;
+
+	$fsize: 14px;
+	$blockstop: -61px; // bah couldnt figure out a good way to calc this...trial & error for ff
+	#blocks, #style {
+		/* mode switcher */
+		z-index: 100;
+
+		position: relative;
+		top: $blockstop; 
+		left: $platformwidth + $fsize;
+
+		h1 {
+			font-weight: bold;
+			font-size: $fsize;
+			background-color: #000;
+
+			border-style: solid;
+			border-width: $width_game_border;
+			border-color: $color_game_border;
+			border-left-style: none;
+			
+			width: $fsize * 3/2;
+
+			text-align: center;
+
+			cursor: pointer;
+
+			&:hover {
+				color: #000;
+				background-color: #d8fd27;
+			}
+		}
+
+		&.chrome {
+			top: -59px !important;
+		}
+	}
+
+	#style {
+		top: $blockstop + $fsize + ($width_game_border * 2);
+	}
+
+	#omgme {
+		/* credits on left */
+		$rotate: -90deg;
+
+		z-index: 100;
+
+		-webkit-transform:rotate($rotate);
+		-moz-transform:rotate($rotate);
+		transform:rotate($rotate);
+
+		position: relative;
+		top: -1 * $platformheight / 3 - 9;
+		left: ((-1 * $platformwidth) / 2) - ($fsize + $width_game_border*3) + 2;
+
+		h1 {
+			font-weight: bold;
+			font-size: $fsize;
+			background-color: #000;
+
+			border-style: solid;
+			border-width: $width_game_border;
+			border-color: $color_game_border;
+			//border-bottom-style: none;
+			
+			width: $fsize * 17;
+
+			text-align: center;
+		}
+
+		&.chrome {
+			top: -1 * $platformheight / 3 - 8 !important;
+		}
+	}
+
+	#spherecontainer {
+		/* sphere positioning and styling on the game board */
+		position: relative;
+
+		.sphere0 {
+			width: $radius;
+			height: $radius;
+
+			display: inline-block;
+			position: absolute;
+
+			//padding-right: $radius/14 + 2px;
+			//padding-bottom: $radius/14 + 2px;
+
+			padding-right: 4px;
+			padding-bottom: 4px;
+
+			//border-style: solid;
+			//border-width: 1px;
+
+			z-index: 200;
+		}
+
+		.sphere1, .sphere2, .sphere3, .sphere4, .sphere5 {
+			$multi: 0.95;
+			width: $radius * $multi;
+			height: $radius * $multi;
+
+			display: inline-block;
+			position: absolute;
+
+			cursor: crosshair;
+
+			left: 2px;
+			top: 2px;
+
+			// hmm this looks pretty cool too, i dunno...
+			//-moz-border-radius: $radius/6;
+			//-webkit-border-radius: $radius/6;
+			//border-radius: $radius/6;	
+			z-index: 100;
+		}
+
+		// sphere specific
+		&.circles {
+			.sphere1, .sphere2, .sphere3, .sphere4, .sphere5
+			{
+				width: $radius !important;
+				height: $radius !important;
+
+				// make it a circle
+				-moz-border-radius: $radius/2;
+				-webkit-border-radius: $radius/2;
+				border-radius: $radius/2;
+
+				//left: 1px !important;
+				//top: 1px !important;
+
+				z-index: 100;
+			}
+
+			// sphere-only shadows
+			.sphere1 { @include sphere_shadow($s1); }
+			.sphere2 { @include sphere_shadow($s2); }
+			.sphere3 { @include sphere_shadow($s3); }
+			.sphere4 { @include sphere_shadow($s4); }
+			.sphere5 { @include sphere_shadow($s5); }
+		}
+ 
+		// block/sphere colors
+		.sphere1 { @include sphere($s1); }
+		.sphere2 { @include sphere($s2); }
+		.sphere3 { @include sphere($s3); }
+		.sphere4 { @include sphere($s4); }
+		.sphere5 { @include sphere($s5); }
+
+		&.style1 {
+			.bleft { @include sphere0_border('left'); }
+			.bright { @include sphere0_border('right'); }
+			.btop { @include sphere0_border('top'); }
+			.bbot { @include sphere0_border('bottom'); }
+		}
+
+		&.style2 .highlighted {
+			.sphere1, .sphere2, .sphere3, .sphere4, .sphere5
+			{
+				/* my own style */
+				border-style: solid;
+				border-color: #fff;
+				border-width: 3px;
+
+				box-shadow: 0px 0px 10px #fff;
+				-moz-box-shadow: 0px 0px 10px #fff;
+				-webkit-box-shadow: 0px 0px 10px #fff;
+			}
+		}
+
+		&.style1, &.style2 {
+			.highlighted {
+				cursor: pointer !important;
+				.sphere1, .sphere2, .sphere3, .sphere4, .sphere5
+				{
+					cursor: pointer !important;
+				}
+			}
+		}
+
+		.hide {
+			display: none !important;
+		}
+
+		// define the row and column positions
+		// columns
+		@for $x from 0 through ($cols - 1) {
+			.col#{$x}{
+				left: $radius * $x + ($x * $padding);
+			}
+		}
+
+		// rows
+		@for $x from 0 through ($rows - 1) {
+			.row#{$x}{
+				top: $radius * $x + ($x * $padding);
+			}
+		}
+	}
+
+	$selectscorewidth: 175px;
+	$scorewidth: 50px;
+	$controlswidth: 150px;
+	$timerwidth: 150px;
+
+	#scorebox {
+		/* the bottom score box */
+		position: absolute;
+
+		bottom: 0;
+		left: $padding * -1 + $width_game_border + 1;
+
+		height: $height_scoreboard;
+		width: 100%;
+
+		border-top-style: solid;
+		border-top-width: $width_game_border;
+		border-top-color: $color_game_border;
+
+		background-color: #000;
+
+		#timercontainer, #selectscore, #scorecontainer {
+			h1 {
+				display: block;
+				margin: 0;
+				padding: 0;
+
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 22px;
+
+				color: #fff;
+				background-color: $color_game_border;
+
+				font-weight: bold;
+				font-size: 14px;
+				text-align: center;
+				vertical-align: middle;
+			}
+
+			div {
+				position: absolute;
+				top: 24px;
+
+				width: 100%;
+				height: 3em;
+
+				font-weight: bold;
+				font-size: 2em;
+				text-align: center;
+				vertical-align: middle;
+			}
+		}
+
+		#scorecontainer {
+			position: absolute;
+			left: $selectscorewidth;
+			width: $platformwidth - $controlswidth - $timerwidth - $selectscorewidth + ($width_game_border * 4);
+			height: 100%;
+
+			display: inline-block;
+
+			h1 {
+				top: auto !important;
+				bottom: 0 !important;
+			}
+
+			div {
+				top: 0 !important;
+			}
+		}
+
+		#timercontainer {
+			position: absolute;
+			right: $controlswidth;
+			width: $timerwidth;
+			height: 100%;
+
+			display: inline-block;
+
+			border-left-style: solid;
+			border-left-width: $width_game_border;
+			border-left-color: $color_game_border;
+		}
+
+		#selectscore {
+			position: absolute;
+			left: 0;
+			width: $selectscorewidth;
+			height: 100%;
+
+			display: inline-block;
+
+			border-right-style: solid;
+			border-right-width: $width_game_border;
+			border-right-color: $color_game_border;
+		}
+
+		#controls {
+			position: absolute;
+			right: 0;
+
+			width: $controlswidth;
+			height: 100%;
+
+			border-left-style: solid;
+			border-left-width: $width_game_border;
+			border-left-color: $color_game_border;
+
+			background-color: $color_game_border;
+
+			display: inline-block;
+
+			a {			
+				display: block !important;
+				padding: 0 !important;
+				width: 100% !important;
+				@include link-button($height_scoreboard);
+			}
+		}
+	}
+}
+
+/* modal stuff */
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 9001; /* omg over 9000! */
+
+	opacity: 0;
+	pointer-events: none;
+
+	&:target {
+		/* this is what actually shows the modal */
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	-webkit-transition: opacity 500ms ease-in;
+	-moz-transition: opacity 500ms ease-in;
+	transition: opacity 500ms ease-in;
+
+	div.mcontainer {
+		width: $platformwidth - ($radius * 5);
+		background: #000;
+
+		top: ($platformheight) / 3;
+		margin: 0px auto;
+		position: relative;
+
+		padding: 1em;
+
+		border-width: $width_game_border;
+		border-style: solid;
+		border-color: $color_game_border;
+
+		$boxshadowcolor: $color_game_border;
+		box-shadow: 1px 1px 30px $boxshadowcolor;
+		-moz-box-shadow: 1px 1px 30px $boxshadowcolor;
+		-webkit-box-shadow: 1px 1px 30px $boxshadowcolor;
+
+		h1 {
+			color: $color_game_border;
+			margin: 0px auto;
+
+			width: 100%;
+			text-align: center;
+
+			font-size: 2em;
+			font-weight: bold;
+			line-height: 1em;
+
+			margin-bottom: 0.5em;
+		}
+
+		.mcontent {
+			font-size: 0.8em;
+
+			min-height: 2em;
+
+			#scores {
+				width: 100%;
+				height: ($platformheight) / 2;
+				overflow: auto;
+
+				table {
+					width: 100%;
+				}
+			}
+
+			input.usernameinput {
+				font-family: $font_opensans;
+				font-weight: bold;
+
+				border-width: 4px;
+				border-style: solid;
+				border-color: #fff;
+
+				transition: all 0.25s ease-in-out;
+				-webkit-transition: all 0.25s ease-in-out;
+				-moz-transition: all 0.25s ease-in-out;
+
+				&:hover, &:focus {
+					border-width: 4px;
+					border-style: solid;
+					border-color: $color_game_border;
+				}
+			}
+
+			div.error {
+				color: lighten(red,25);
+				font-weight: bold;
+			}
+
+			input.error {
+				border-width: 4px !important;
+				border-style: dashed !important;
+				border-color: red !important;
+
+				transition: all 0.25s ease-in-out;
+				-webkit-transition: all 0.25s ease-in-out;
+				-moz-transition: all 0.25s ease-in-out;
+			}
+		}
+
+		.mbuttons {
+			position: absolute;
+			right: $width_game_border * -1;
+			margin: 0;
+			margin-top: 1em;
+			padding: 0;
+
+			background-color: $color_game_border;
+			border-width: $width_game_border;
+			border-style: solid;
+			border-color: $color_game_border;
+
+			a {			
+				@include link-button($height_scoreboard);
+			}
+		}
+	}
+}
+
+@import "bokeh";

@@ -1,0 +1,57 @@
+/*
+CSE 190 M, Spring 2007
+Homework writeup shared style sheet for printing
+*/
+
+#footer {
+	display: none;
+}
+
+h1,h2,h3,h4 {
+	page-break-after: avoid;
+}
+
+img.split {
+	width: 48%;
+}
+
+.narrow {
+	letter-spacing: -0.02em;
+}
+
+.outputimagelist img, .expectedoutput img {
+	width: 100%;
+}
+
+.split img {
+	width: 45%;
+}
+
+.split img.separator {
+	height: 330px;
+	width: 15px;
+}
+
+.pagestart {
+	page-break-before: always;
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
+pre, code, samp, tt {
+	font-size: 9pt;
+	line-height: 10pt;
+	letter-spacing: -0.03em;
+}
+
+.rightfigure {
+	max-width: 20%;
+}
+
+.tall {
+	line-height: 1.3em;
+}
+
+.verynarrow {
+	letter-spacing: -0.08em;
+}

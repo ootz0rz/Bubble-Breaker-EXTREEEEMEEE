@@ -1,0 +1,192 @@
+
+<!-- saved from url=(0071)http://www.cs.toronto.edu/~delara/courses/csc309/assignments/a2/a2.html -->
+<html><!-- #BeginTemplate "/Templates/standard.dwt" --><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="./A2, Bubble Breaker_files/bubble.css">
+		<link rel="stylesheet" type="text/css" href="./A2, Bubble Breaker_files/print.css" media="print">
+
+<title> A2, Bubble Breaker</title>
+<link type="image/png" rel="shortcut icon" href="http://www.cs.toronto.edu/favicon.ico"></head>
+
+<body>
+
+
+<h1> Assignment 2 </h1>
+<h1>Bubble Breaker</h1>
+<h1> Due Date: Feb 10 at 5:00 PM</h1>
+
+
+<h2> Description </h2>
+
+
+
+
+<p>
+In this assignment you will develop a web site for playing Bubble
+Breaker. </p>
+
+
+<p>
+Bubble Breaker is a puzzle game that presents the user
+with a rectangular playing screen 8 rows high by 15 columns wide
+filled randomly with bubbles of 5 different colors (see Figure
+1). 
+</p>
+
+<p><img class="figure" src="./A2, Bubble Breaker_files/bubbles1.jpg"></p>
+<p class="caption">Figure 1</p>
+
+
+<p>
+The objective of the game is to remove as many bubbles from the screen
+as possible while connecting bubbles of the same kind together to
+achieve a higher score.
+</p>
+
+
+<p>
+To remove a group of 2 or more adjoined bubbles of the same color, a
+user first selects the group by clicking on one of the bubbles.  The
+application then highlights the set of selected bubbles by surrounding
+them with a thin border.  The application also shows how many 
+points would be gained by removing the group (see Figure 2).
+The total points is determined by the formula <em>n<sup>2</sup></em>, where
+n is the number of bubbles in the group.  The user can then remove the
+group by clicking a second time on one of the highlighted bubbles;
+however, if the user clicks on a bubble that is not in the highlighted
+set the original selection is cancelated.  In the later case, when the
+user clicks on a bubble that has itself adjoining bubbles of the same
+color, the application also highlights the new set of selected
+bubbles.
+</p>
+
+<p><img class="figure" src="./A2, Bubble Breaker_files/bubbles2.jpg"></p> 
+<p class="caption">Figure 2</p>
+
+
+<p>
+When bubbles are removed from the screen the usual gravity action
+takes place (see Figure 3). A column without any bubbles left is trimmed
+away by other columns which slide to the left.
+</p>
+
+<p><img class="figure" src="./A2, Bubble Breaker_files/bubbles3.jpg"></p>
+<p class="caption">Figure 3</p>
+
+
+<p>The game ends when all bubbles are cleared from the screen or when
+there are no adjoining bubbles of the same color left on the screen
+(see Figure 4).
+</p>
+
+
+<p><img class="figure" src="./A2, Bubble Breaker_files/bubbles4.jpg"></p>
+<p class="caption">Figure 4</p>
+
+
+
+<h2>Requirements</h2>
+
+<ul>
+<li>
+This assignment evaluates the use of client-side Web technologies
+including XHTML, CSS, JavaScript, and DOM, as well as calling on
+provided CGI scripts.  You will use these technologies to provide a
+pleasant experience for your Web site.  Do not use Applets for this
+assignment and refrain from using server-side programming.  Other than
+the provided scripts, everything must happen on the client-side.  Make
+sure to use CSS style sheets in favor of deprecated HTML tags and
+attributes.  </li>
+
+<li>At any time a user should be able to start a new game.</li>
+
+<li>Your application should show the current score at all times.</li>
+
+<li>Your application should diplay a timer that shows how many seconds
+have elapsed since the user started to play.  Reset the timer when
+starting a new game.</li>
+
+<li>At the end of a game, your application should ask the user to type
+their name.  It will then call on the CGI script <a href="http://www.cs.toronto.edu/~delara/courses/csc309/assignments/a2/topScore.pl">topScore.pl</a>, which returns an HTML document
+that displays a ranking of all game scores to date.  Your application
+should display this ranking to the user.  The script topScore.pl
+expects to be called with a URL of the form http://servername:&lt;yourportnumber&gt;/cgi-bin/topScore.pl?name=<em>username</em>&amp;score=<em>numericscore</em>.
+
+
+<p><b>Note</b>: Consult the Student Guide for
+instructions on how to install Apache and run CGI scripts. The script
+topScore.pl should run unmodified on cdf; however, to run the script
+on your home machine you will have to edit the script to set the path
+where perl is installed in your system. Finally, remember to make
+topScore.pl executable after you copy it to the cgi-bin
+directory.
+</p>
+</li>
+
+
+<li> Your application should be easy to use.</li>
+
+<li>The main entry page for your site should be called
+<em>index.html</em>.</li>
+
+<li> Make sure your site functions correctly in the CDF
+environment.  TAs will not debug so test to ensure it works the first
+time! </li>
+</ul>
+
+
+
+
+<h2> Deliverables </h2>
+
+<p>
+
+Put all necessary files in one directory, and archive the directory
+into a single file using <em>tar</em> or a similar utility. Finally, submit
+your assignment using the BlackBoard system.
+
+
+</p>
+
+<p>
+You electronic submission should include the following items:
+</p>
+   
+<ul>
+    
+<li> Documentation for your Web site (brief explanations
+     of how it all works).</li>
+<li> CSS file(s).</li>
+<li> XHTML file(s).</li>
+<li> JavaScript file(s).</li>
+
+</ul>
+
+<p>Do <b>NOT</b> include the provided CGI script with your submission.  You can assume that the TA will have the script available under http://localhost:&lt;TAPort&gt;/cgi-bin/topScore.pl.</p>
+
+ 
+<p>Finally, all deliverables should be neatly formatted,
+readable,and be properly documented .
+</p>
+
+<p>
+Good luck!
+</p>
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="display: none; " id="orbiousinterest_dialog"><div class="container">  <div class="header">Mark as unread</div>  URL <input type="text" value="" class="url" readonly="readonly"><br>  Title <input type="text" value="" class="title"><br>  Tags <input type="text" value="tags, seperated by commas" class="tags empty">  <div class="buttons">     <input type="button" value="Cancel" class="cancel">     <input type="button" value="Save" class="save">  </div></div></div><a id="ORBVIOUS_DOMWindowHost" href="http://www.cs.toronto.edu/~delara/courses/csc309/assignments/a2/a2.html#orbiousinterest_dialog"></a><iframe height="0" width="0" style="display: none; " src=""></iframe></body><link rel="stylesheet" type="text/css" href="data:text/css,"></html>
